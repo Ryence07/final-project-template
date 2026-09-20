@@ -10,12 +10,11 @@ import PlayerMatch from './pages/PlayerMatch'
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Header />
 
       <Routes>
-        <Route path="/" element={<PaddleMatch />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="/paddles" element={<PaddleMatch />} />
         <Route path="/players" element={<PlayerMatch />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
