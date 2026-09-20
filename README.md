@@ -6,7 +6,6 @@ PaddleMatch is a web application that helps pickleball players find suitable pad
 **API:** Not deployed yet
 **Demo video:** To be added in Week 3
 
-**Current status:** The frontend is currently deployed in demo mode. The API and PostgreSQL database will be developed in the next phase.
 <img width="1920" height="1310" alt="homeryence" src="https://github.com/user-attachments/assets/e84fed96-452e-4286-bc97-02987489be34" />
 ---
 
