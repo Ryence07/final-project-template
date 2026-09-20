@@ -1,36 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import PlayerCard from '../components/PlayerCard'
+import { players as playerData } from '../data/players'
 
 function PlayerMatch() {
-    const [players, setPlayers] = useState([])
+    const [players] = useState(playerData)
     const [skillLevel, setSkillLevel] = useState('')
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState('')
-
-    useEffect(() => {
-        async function fetchPlayers() {
-            try {
-                const response = await fetch(
-                    'http://localhost:3000/api/players'
-                )
-
-                if (!response.ok) {
-                    throw new Error('Failed to fetch players')
-                }
-
-                const data = await response.json()
-
-                setPlayers(data)
-            } catch (error) {
-                console.error(error)
-                setError('Unable to load players.')
-            } finally {
-                setLoading(false)
-            }
-        }
-
-        fetchPlayers()
-    }, [])
 
     const filteredPlayers = players.filter((player) => {
         if (!skillLevel) {
@@ -63,11 +37,18 @@ function PlayerMatch() {
                             setSkillLevel(event.target.value)
                         }
                     >
-                        <option value="">All Skill Levels</option>
-                        <option value="Beginner">Beginner</option>
+                        <option value="">
+                            All Skill Levels
+                        </option>
+
+                        <option value="Beginner">
+                            Beginner
+                        </option>
+
                         <option value="Recreational">
                             Recreational
                         </option>
+
                         <option value="Intermediate">
                             Intermediate
                         </option>
@@ -75,20 +56,14 @@ function PlayerMatch() {
                 </label>
             </section>
 
-            {loading && <p>Loading players...</p>}
-
-            {error && <p>{error}</p>}
-
-            {!loading && !error && (
-                <section className="player-list">
-                    {filteredPlayers.map((player) => (
-                        <PlayerCard
-                            key={player.id}
-                            player={player}
-                        />
-                    ))}
-                </section>
-            )}
+            <section className="player-list">
+                {filteredPlayers.map((player) => (
+                    <PlayerCard
+                        key={player.id}
+                        player={player}
+                    />
+                ))}
+            </section>
         </main>
     )
 }

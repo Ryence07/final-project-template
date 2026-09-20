@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import PaddleCard from '../components/PaddleCard'
 import PaddleDetailsModal from '../components/PaddleDetailsModal'
 import SelectField from '../components/SelectField'
+import { paddles as paddleData } from '../data/paddles'
 
 function getBudgetLimit(budget) {
     if (budget === '₱3,000 or less') {
@@ -44,39 +45,12 @@ function getMatchScore(paddle, skillLevel, playingStyle, budget) {
 }
 
 function PaddleMatch() {
-    const [paddles, setPaddles] = useState([])
+    const [paddles] = useState(paddleData)
     const [skillLevel, setSkillLevel] = useState('')
     const [playingStyle, setPlayingStyle] = useState('')
     const [budget, setBudget] = useState('')
     const [recommendations, setRecommendations] = useState([])
     const [selectedPaddle, setSelectedPaddle] = useState(null)
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState('')
-
-    useEffect(() => {
-        async function fetchPaddles() {
-            try {
-                const response = await fetch(
-                    'http://localhost:3000/api/paddles'
-                )
-
-                if (!response.ok) {
-                    throw new Error('Failed to fetch paddles')
-                }
-
-                const data = await response.json()
-
-                setPaddles(data)
-            } catch (error) {
-                console.error(error)
-                setError('Unable to load paddles.')
-            } finally {
-                setLoading(false)
-            }
-        }
-
-        fetchPaddles()
-    }, [])
 
     function handleSubmit(event) {
         event.preventDefault()
@@ -110,7 +84,10 @@ function PaddleMatch() {
                 </p>
             </section>
 
-            <form className="preference-form" onSubmit={handleSubmit}>
+            <form
+                className="preference-form"
+                onSubmit={handleSubmit}
+            >
                 <SelectField
                     label="Skill Level"
                     value={skillLevel}
@@ -150,18 +127,13 @@ function PaddleMatch() {
                     }
                 />
 
-                <button type="submit" className="primary-button">
+                <button
+                    type="submit"
+                    className="primary-button"
+                >
                     Find Match
                 </button>
             </form>
-
-            {loading && (
-                <p>Loading paddles...</p>
-            )}
-
-            {error && (
-                <p>{error}</p>
-            )}
 
             {recommendations.length > 0 && (
                 <section className="recommendations">
@@ -179,13 +151,11 @@ function PaddleMatch() {
                 </section>
             )}
 
-            {!loading &&
-                !error &&
-                recommendations.length === 0 && (
-                    <p>
-                        Choose your preferences and click Find Match.
-                    </p>
-                )}
+            {recommendations.length === 0 && (
+                <p>
+                    Choose your preferences and click Find Match.
+                </p>
+            )}
 
             <PaddleDetailsModal
                 paddle={selectedPaddle}
