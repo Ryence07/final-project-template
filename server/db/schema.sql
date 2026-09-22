@@ -1,20 +1,35 @@
--- The complete shape of the database. Safe to run against an empty database,
--- and safe to run twice.
---
--- This file is committed on purpose. Your schema is a fact about your
--- application, not a runtime concern: it should be readable by opening a file
--- rather than by connecting to a server. It is also what lets you move to a
--- hosted database in one command.
-
-CREATE TABLE IF NOT EXISTS sightings (
-  id          SERIAL PRIMARY KEY,
-  place       TEXT        NOT NULL,
-  description TEXT        NOT NULL DEFAULT '',
-  spookiness  INTEGER     NOT NULL CHECK (spookiness BETWEEN 1 AND 5),
-  reported_at TIMESTAMPTZ NOT NULL DEFAULT now()
+CREATE TABLE IF NOT EXISTS paddles (
+    id SERIAL PRIMARY KEY,
+    brand TEXT NOT NULL,
+    model TEXT NOT NULL,
+    price INTEGER NOT NULL CHECK (price >= 0),
+    description TEXT NOT NULL DEFAULT '',
+    weight TEXT NOT NULL,
+    shape TEXT NOT NULL,
+    power TEXT NOT NULL,
+    control TEXT NOT NULL,
+    spin TEXT NOT NULL
 );
 
--- The list page always sorts newest first. Without this the database reads
--- every row and sorts it on each request.
-CREATE INDEX IF NOT EXISTS sightings_reported_at_idx
-  ON sightings (reported_at DESC);
+CREATE TABLE IF NOT EXISTS paddle_recommendations (
+    paddle_id INTEGER NOT NULL REFERENCES paddles(id) ON DELETE CASCADE,
+    skill_level TEXT NOT NULL,
+    PRIMARY KEY (paddle_id, skill_level)
+);
+
+CREATE TABLE IF NOT EXISTS paddle_styles (
+    paddle_id INTEGER NOT NULL REFERENCES paddles(id) ON DELETE CASCADE,
+    style TEXT NOT NULL,
+    PRIMARY KEY (paddle_id, style)
+);
+
+CREATE TABLE IF NOT EXISTS players (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    skill_level TEXT NOT NULL,
+    playing_style TEXT NOT NULL,
+    availability TEXT NOT NULL,
+    wins INTEGER NOT NULL DEFAULT 0 CHECK (wins >= 0),
+    losses INTEGER NOT NULL DEFAULT 0 CHECK (losses >= 0),
+    points INTEGER NOT NULL DEFAULT 0 CHECK (points >= 0)
+);

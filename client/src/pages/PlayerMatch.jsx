@@ -1,10 +1,27 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { listPlayers } from '../api'
 import PlayerCard from '../components/PlayerCard'
-import { players as playerData } from '../data/players'
 
 function PlayerMatch() {
-    const [players] = useState(playerData)
+    const [players, setPlayers] = useState([])
     const [skillLevel, setSkillLevel] = useState('')
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState('')
+
+    useEffect(() => {
+        async function loadPlayers() {
+            try {
+                const data = await listPlayers()
+                setPlayers(data)
+            } catch (error) {
+                setError(error.message)
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        loadPlayers()
+    }, [])
 
     const filteredPlayers = players.filter((player) => {
         if (!skillLevel) {
@@ -13,6 +30,30 @@ function PlayerMatch() {
 
         return player.skillLevel === skillLevel
     })
+
+    if (loading) {
+        return (
+            <main className="player-page">
+                <section className="page-heading">
+                    <p className="eyebrow">PLAYER MATCH</p>
+                    <h1>Find Players to Play With</h1>
+                    <p>Loading players...</p>
+                </section>
+            </main>
+        )
+    }
+
+    if (error) {
+        return (
+            <main className="player-page">
+                <section className="page-heading">
+                    <p className="eyebrow">PLAYER MATCH</p>
+                    <h1>Find Players to Play With</h1>
+                    <p>Unable to load players: {error}</p>
+                </section>
+            </main>
+        )
+    }
 
     return (
         <main className="player-page">

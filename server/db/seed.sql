@@ -1,27 +1,175 @@
--- Sample data for development.
---
--- This starts with TRUNCATE. That is correct on your laptop and catastrophic
--- against the database your live demo depends on. Check which DATABASE_URL is
--- loaded before you run it.
+TRUNCATE TABLE
+  paddle_recommendations,
+  paddle_styles,
+  paddles,
+  players
+RESTART IDENTITY CASCADE;
 
-TRUNCATE TABLE sightings RESTART IDENTITY CASCADE;
+-- =========================
+-- PADDLES
+-- =========================
 
-INSERT INTO sightings (place, description, spookiness, reported_at) VALUES
-  ('Library, third floor',
-   'Chairs rearranged overnight, every time. The night guard says he locks the room himself.',
-   3, now() - interval '12 days'),
-  ('Old gym',
-   'Lights flicker in a fixed pattern after 9pm, always three short and one long.',
-   4, now() - interval '10 days'),
-  ('Parking basement',
-   'Footsteps with no one there. Reported separately by three different people in one week, which is what makes this one hard to dismiss. Two of them were alone at the time and did not know about the others. This row is deliberately long, because a seed of four words hides every text-wrapping bug you have.',
-   5, now() - interval '8 days'),
-  ('Canteen',
-   'A cold spot near the back door, every morning before seven.',
-   1, now() - interval '7 days'),
-  ('AB Building stairwell',
-   '',
-   2, now() - interval '5 days'),
-  ('Chapel garden',
-   'Someone humming. Stops the moment you turn around.',
-   3, now() - interval '2 days');
+INSERT INTO paddles (
+  brand,
+  model,
+  price,
+  description,
+  weight,
+  shape,
+  power,
+  control,
+  spin
+) VALUES
+(
+  'Selkirk',
+  'SLK Evo Control',
+  4999,
+  'A balanced paddle designed for players who want more control.',
+  '7.5–8.0 oz',
+  'Widebody',
+  'Medium',
+  'High',
+  'High'
+),
+(
+  'JOOLA',
+  'Essentials',
+  3999,
+  'A beginner-friendly paddle with a comfortable feel.',
+  '7.8 oz',
+  'Standard',
+  'Medium',
+  'Medium',
+  'Medium'
+),
+(
+  'Franklin',
+  'Signature',
+  2999,
+  'An affordable option for recreational pickleball players.',
+  '7.6 oz',
+  'Standard',
+  'Medium',
+  'Medium',
+  'Medium'
+),
+(
+  'Selkirk',
+  'SLK Halo Power',
+  5999,
+  'A power-focused paddle for players who want stronger shots.',
+  '7.8–8.2 oz',
+  'Standard',
+  'High',
+  'Medium',
+  'High'
+),
+(
+  'JOOLA',
+  'Ben Johns Hyperion',
+  6999,
+  'A performance-oriented paddle offering a balance of power and control.',
+  '8.0 oz',
+  'Elongated',
+  'High',
+  'High',
+  'High'
+);
+
+-- =========================
+-- PADDLE RECOMMENDATIONS
+-- =========================
+
+INSERT INTO paddle_recommendations (paddle_id, skill_level) VALUES
+(1, 'Beginner'),
+(1, 'Recreational'),
+
+(2, 'Beginner'),
+(2, 'Recreational'),
+
+(3, 'Beginner'),
+(3, 'Recreational'),
+
+(4, 'Recreational'),
+(4, 'Intermediate'),
+
+(5, 'Intermediate');
+
+-- =========================
+-- PADDLE STYLES
+-- =========================
+
+INSERT INTO paddle_styles (paddle_id, style) VALUES
+(1, 'Control'),
+(1, 'Balanced'),
+
+(2, 'Balanced'),
+(2, 'Control'),
+
+(3, 'Balanced'),
+
+(4, 'Power'),
+(4, 'Balanced'),
+
+(5, 'Power'),
+(5, 'Balanced'),
+(5, 'Control');
+
+-- =========================
+-- PLAYERS
+-- =========================
+
+INSERT INTO players (
+  name,
+  skill_level,
+  playing_style,
+  availability,
+  wins,
+  losses,
+  points
+) VALUES
+(
+  'Jeremiah Carbungco',
+  'Beginner',
+  'Control',
+  'Weekends',
+  8,
+  4,
+  120
+),
+(
+  'Ryence Cortez',
+  'Recreational',
+  'Balanced',
+  'Weekday Evenings',
+  15,
+  7,
+  185
+),
+(
+  'Abea Aquino',
+  'Intermediate',
+  'Power',
+  'Weekends',
+  21,
+  6,
+  240
+),
+(
+  'Ranz Cuarto',
+  'Recreational',
+  'Control',
+  'Friday Evenings',
+  12,
+  8,
+  160
+),
+(
+  'Emman Soriano',
+  'Beginner',
+  'Balanced',
+  'Saturday',
+  6,
+  5,
+  100
+);

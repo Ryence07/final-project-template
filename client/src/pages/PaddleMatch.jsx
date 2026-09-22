@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { listPaddles } from '../api'
 import PaddleCard from '../components/PaddleCard'
 import PaddleDetailsModal from '../components/PaddleDetailsModal'
 import SelectField from '../components/SelectField'
-import { paddles as paddleData } from '../data/paddles'
 
 function getBudgetLimit(budget) {
     if (budget === '₱3,000 or less') {
@@ -45,12 +45,29 @@ function getMatchScore(paddle, skillLevel, playingStyle, budget) {
 }
 
 function PaddleMatch() {
-    const [paddles] = useState(paddleData)
+    const [paddles, setPaddles] = useState([])
     const [skillLevel, setSkillLevel] = useState('')
     const [playingStyle, setPlayingStyle] = useState('')
     const [budget, setBudget] = useState('')
     const [recommendations, setRecommendations] = useState([])
     const [selectedPaddle, setSelectedPaddle] = useState(null)
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState('')
+
+    useEffect(() => {
+        async function loadPaddles() {
+            try {
+                const data = await listPaddles()
+                setPaddles(data)
+            } catch (error) {
+                setError(error.message)
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        loadPaddles()
+    }, [])
 
     function handleSubmit(event) {
         event.preventDefault()
@@ -69,6 +86,30 @@ function PaddleMatch() {
             .sort((a, b) => b.matchScore - a.matchScore)
 
         setRecommendations(results)
+    }
+
+    if (loading) {
+        return (
+            <main className="match-page">
+                <section className="match-intro">
+                    <p className="eyebrow">PADDLE MATCH</p>
+                    <h1>Find Your Perfect Paddle</h1>
+                    <p>Loading paddles...</p>
+                </section>
+            </main>
+        )
+    }
+
+    if (error) {
+        return (
+            <main className="match-page">
+                <section className="match-intro">
+                    <p className="eyebrow">PADDLE MATCH</p>
+                    <h1>Find Your Perfect Paddle</h1>
+                    <p>Unable to load paddles: {error}</p>
+                </section>
+            </main>
+        )
     }
 
     return (

@@ -1,8 +1,49 @@
-import { useState } from 'react'
-import { players as playerData } from '../data/players'
+import { useEffect, useState } from 'react'
+import { listPlayers } from '../api'
 
 function Leaderboard() {
-    const [players] = useState(playerData)
+    const [players, setPlayers] = useState([])
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState('')
+
+    useEffect(() => {
+        async function loadPlayers() {
+            try {
+                const data = await listPlayers()
+                setPlayers(data)
+            } catch (error) {
+                setError(error.message)
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        loadPlayers()
+    }, [])
+
+    if (loading) {
+        return (
+            <main className="leaderboard-page">
+                <section className="page-heading">
+                    <p className="eyebrow">LEADERBOARD</p>
+                    <h1>Player Leaderboard</h1>
+                    <p>Loading leaderboard...</p>
+                </section>
+            </main>
+        )
+    }
+
+    if (error) {
+        return (
+            <main className="leaderboard-page">
+                <section className="page-heading">
+                    <p className="eyebrow">LEADERBOARD</p>
+                    <h1>Player Leaderboard</h1>
+                    <p>Unable to load leaderboard: {error}</p>
+                </section>
+            </main>
+        )
+    }
 
     return (
         <main className="leaderboard-page">

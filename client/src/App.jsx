@@ -10,7 +10,7 @@ import PlayerMatch from './pages/PlayerMatch'
 
 function App() {
   return (
-    <BrowserRouter basename={import.meta.env.BASE_URL}>
+    <BrowserRouter>
       <Header />
 
       <Routes>
