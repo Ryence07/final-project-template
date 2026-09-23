@@ -16,6 +16,36 @@ function parseId(value) {
   return id
 }
 
+function basicAuth(request, response, next) {
+  // Allow browser preflight requests
+  if (request.method === 'OPTIONS') {
+    return next()
+  }
+
+  const auth = request.headers.authorization
+
+  if (!auth || !auth.startsWith('Basic ')) {
+    response.set('WWW-Authenticate', 'Basic realm="PaddleMatch"')
+    return response.status(401).json({ error: 'Authentication required' })
+  }
+
+  const decoded = Buffer.from(auth.slice(6), 'base64').toString()
+  const separator = decoded.indexOf(':')
+
+  const username = separator >= 0 ? decoded.slice(0, separator) : ''
+  const password = separator >= 0 ? decoded.slice(separator + 1) : ''
+
+  if (
+    username !== process.env.APP_USERNAME ||
+    password !== process.env.APP_PASSWORD
+  ) {
+    response.set('WWW-Authenticate', 'Basic realm="PaddleMatch"')
+    return response.status(401).json({ error: 'Invalid credentials' })
+  }
+
+  next()
+}
+
 const allowedOrigins = (process.env.CORS_ORIGINS || 'http://localhost:5173')
   .split(',')
   .map((origin) => origin.trim())
@@ -23,6 +53,9 @@ const allowedOrigins = (process.env.CORS_ORIGINS || 'http://localhost:5173')
 
 app.use(cors({ origin: allowedOrigins }))
 app.use(express.json({ limit: '100kb' }))
+
+// Authentication protects all application routes.
+app.use(basicAuth)
 
 // Is the process alive?
 app.get('/healthz', (request, response) => {
