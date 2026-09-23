@@ -1,9 +1,35 @@
 const BASE = import.meta.env.VITE_API_BASE_URL || ''
 
-async function request(path, options) {
+let authHeader = null
+
+function getAuthHeader() {
+  if (authHeader) {
+    return authHeader
+  }
+
+  const username = window.prompt('PaddleMatch username:')
+  if (username === null) {
+    throw new Error('Authentication cancelled')
+  }
+
+  const password = window.prompt('PaddleMatch password:')
+  if (password === null) {
+    throw new Error('Authentication cancelled')
+  }
+
+  authHeader = `Basic ${btoa(`${username}:${password}`)}`
+
+  return authHeader
+}
+
+async function request(path, options = {}) {
   const response = await fetch(`${BASE}${path}`, {
-    headers: { 'Content-Type': 'application/json' },
     ...options,
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: getAuthHeader(),
+      ...options.headers,
+    },
   })
 
   if (!response.ok) {
@@ -15,8 +41,11 @@ async function request(path, options) {
       if (body?.error) {
         message = body.error
       }
-    } catch {
-      // The body was not JSON.
+    } catch { }
+
+    // Clear credentials if the server rejected them.
+    if (response.status === 401) {
+      authHeader = null
     }
 
     throw new Error(message)
@@ -26,9 +55,6 @@ async function request(path, options) {
 }
 
 export const listPaddles = () => request('/api/paddles')
-
 export const getPaddle = (id) => request(`/api/paddles/${id}`)
-
 export const listPlayers = () => request('/api/players')
-
 export const getPlayer = (id) => request(`/api/players/${id}`)
