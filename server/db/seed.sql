@@ -129,7 +129,7 @@ INSERT INTO players (
   points
 ) VALUES
 (
-  'Jeremiah Carbungco',
+  'Alucard Reyes',
   'Beginner',
   'Control',
   'Weekends',
@@ -138,7 +138,7 @@ INSERT INTO players (
   120
 ),
 (
-  'Ryence Cortez',
+  'Gusion Navarro',
   'Recreational',
   'Balanced',
   'Weekday Evenings',
@@ -147,7 +147,7 @@ INSERT INTO players (
   185
 ),
 (
-  'Abea Aquino',
+  'Granger Santos',
   'Intermediate',
   'Power',
   'Weekends',
@@ -156,7 +156,7 @@ INSERT INTO players (
   240
 ),
 (
-  'Ranz Cuarto',
+  'Julian Cruz',
   'Recreational',
   'Control',
   'Friday Evenings',
@@ -165,7 +165,7 @@ INSERT INTO players (
   160
 ),
 (
-  'Emman Soriano',
+  'Xavier Mendoza',
   'Beginner',
   'Balanced',
   'Saturday',

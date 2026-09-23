@@ -1,7 +1,7 @@
 export const players = [
     {
         id: 1,
-        name: 'Jeremiah Carbungco',
+        name: 'Alucard Reyes',
         skillLevel: 'Beginner',
         playingStyle: 'Control',
         availability: 'Weekends',
@@ -12,7 +12,7 @@ export const players = [
 
     {
         id: 2,
-        name: 'Ryence Cortez',
+        name: 'Gusion Navarro',
         skillLevel: 'Recreational',
         playingStyle: 'Balanced',
         availability: 'Weekday Evenings',
@@ -23,7 +23,7 @@ export const players = [
 
     {
         id: 3,
-        name: 'Abea Aquino',
+        name: 'Granger Santos',
         skillLevel: 'Intermediate',
         playingStyle: 'Power',
         availability: 'Weekends',
@@ -34,7 +34,7 @@ export const players = [
 
     {
         id: 4,
-        name: 'Ranz Cuarto',
+        name: 'Julian Cruz',
         skillLevel: 'Recreational',
         playingStyle: 'Control',
         availability: 'Friday Evenings',
@@ -45,7 +45,7 @@ export const players = [
 
     {
         id: 5,
-        name: 'Emman Soriano',
+        name: 'Xavier Mendoza',
         skillLevel: 'Beginner',
         playingStyle: 'Balanced',
         availability: 'Saturday',
