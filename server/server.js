@@ -6,6 +6,16 @@ import * as players from './playersRepo.js'
 
 const app = express()
 
+function parseId(value) {
+  const id = Number(value)
+
+  if (!Number.isInteger(id) || id <= 0) {
+    return null
+  }
+
+  return id
+}
+
 const allowedOrigins = (process.env.CORS_ORIGINS || 'http://localhost:5173')
   .split(',')
   .map((origin) => origin.trim())
@@ -44,7 +54,13 @@ app.get('/api/paddles', async (request, response, next) => {
 
 app.get('/api/paddles/:id', async (request, response, next) => {
   try {
-    const row = await paddles.getById(pool, request.params.id)
+    const id = parseId(request.params.id)
+
+    if (id === null) {
+      return response.status(400).json({ error: 'Invalid paddle ID' })
+    }
+
+    const row = await paddles.getById(pool, id)
 
     if (!row) {
       return response.status(404).json({ error: 'Paddle not found' })
@@ -70,7 +86,13 @@ app.get('/api/players', async (request, response, next) => {
 
 app.get('/api/players/:id', async (request, response, next) => {
   try {
-    const row = await players.getById(pool, request.params.id)
+    const id = parseId(request.params.id)
+
+    if (id === null) {
+      return response.status(400).json({ error: 'Invalid player ID' })
+    }
+
+    const row = await players.getById(pool, id)
 
     if (!row) {
       return response.status(404).json({ error: 'Player not found' })
