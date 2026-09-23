@@ -1,9 +1,9 @@
 const paddleImages = {
-    1: '/images/paddles/paddle-slk-evo-control.png',
-    2: '/images/paddles/paddle-joola-essentials.png',
-    3: '/images/paddles/paddle-franklin-signature.png',
-    4: '/images/paddles/paddle-slk-halo-power.png',
-    5: '/images/paddles/paddle-hyperion.png',
+    1: `${import.meta.env.BASE_URL}images/paddles/paddle-slk-evo-control.png`,
+    2: `${import.meta.env.BASE_URL}images/paddles/paddle-joola-essentials.png`,
+    3: `${import.meta.env.BASE_URL}images/paddles/paddle-franklin-signature.png`,
+    4: `${import.meta.env.BASE_URL}images/paddles/paddle-slk-halo-power.png`,
+    5: `${import.meta.env.BASE_URL}images/paddles/paddle-hyperion.png`,
 }
 
 function PaddleDetailsModal({ paddle, onClose }) {

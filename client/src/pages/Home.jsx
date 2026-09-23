@@ -21,7 +21,7 @@ function Home() {
 
         <div className="hero-image">
           <img
-            src="/images/paddlematch-hero.png"
+            src={`${import.meta.env.BASE_URL}images/paddlematch-hero.png`}
             alt="Pickleball paddle and ball on a court"
           />
         </div>
