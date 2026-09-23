@@ -134,7 +134,6 @@ select:focus-visible {
   outline-offset: 3px;
 }
 
-
 /* =========================
    HOME
    ========================= */
@@ -146,7 +145,7 @@ select:focus-visible {
   padding: 80px var(--space-4);
 
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 0.8fr 1.2fr;
   gap: var(--space-6);
 
   align-items: center;
@@ -200,8 +199,16 @@ select:focus-visible {
   background: #4B5563;
 }
 
+/* Home hero image */
+
 .home-image-placeholder {
-  height: 320px;
+  width: 100%;
+  max-width: 620px;
+  height: 360px;
+
+  margin-left: auto;
+
+  overflow: hidden;
 
   display: flex;
   align-items: center;
@@ -211,6 +218,14 @@ select:focus-visible {
   border-radius: 12px;
 
   color: var(--color-muted);
+}
+
+.home-image-placeholder img {
+  width: 100%;
+  height: 100%;
+  display: block;
+
+  object-fit: cover;
 }
 
 .home-features {
@@ -253,7 +268,6 @@ select:focus-visible {
   color: var(--color-text);
   font-size: 14px;
 }
-
 
 /* =========================
    PADDLE MATCH
@@ -413,7 +427,6 @@ select:focus-visible {
   margin-top: var(--space-1);
 }
 
-
 /* =========================
    PADDLE DETAILS MODAL
    ========================= */
@@ -473,18 +486,16 @@ select:focus-visible {
 }
 
 .modal-image {
-  height: 220px;
+  overflow: hidden;
+}
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.modal-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
 
-  margin-bottom: var(--space-3);
-
-  background: var(--color-bg);
-  border-radius: 8px;
-
-  color: var(--color-muted);
+  object-fit: contain;
+  object-position: center;
 }
 
 .modal-content h2 {
@@ -542,7 +553,6 @@ select:focus-visible {
 .modal-button {
   width: 100%;
 }
-
 
 /* =========================
    PLAYER MATCH
@@ -670,7 +680,6 @@ select:focus-visible {
   color: var(--color-muted);
 }
 
-
 /* =========================
    LEADERBOARD
    ========================= */
@@ -733,7 +742,6 @@ select:focus-visible {
   width: 100px;
 }
 
-
 /* =========================
    FOOTER
    ========================= */
@@ -749,10 +757,8 @@ select:focus-visible {
   font-size: 14px;
 }
 
-
 /* =========================
    MOBILE
-   M6A3: < 768px
    ========================= */
 
 @media (max-width: 767px) {
@@ -821,7 +827,6 @@ select:focus-visible {
     border-top: 1px solid #252932;
   }
 
-
   /* Home */
 
   .home-hero {
@@ -837,7 +842,9 @@ select:focus-visible {
   }
 
   .home-image-placeholder {
+    max-width: 100%;
     height: 240px;
+    margin-left: 0;
   }
 
   .home-features {
@@ -847,7 +854,6 @@ select:focus-visible {
   .feature-grid {
     grid-template-columns: 1fr;
   }
-
 
   /* Paddle Match */
 
@@ -866,7 +872,6 @@ select:focus-visible {
   .paddle-grid {
     grid-template-columns: 1fr;
   }
-
 
   /* Modal */
 
@@ -888,7 +893,6 @@ select:focus-visible {
     grid-template-columns: 1fr;
   }
 
-
   /* Player Match */
 
   .player-page,
@@ -903,7 +907,6 @@ select:focus-visible {
   .player-record {
     margin-left: auto;
   }
-
 
   /* Leaderboard */
 
@@ -932,7 +935,6 @@ select:focus-visible {
 .leaderboard-mobile {
   display: none;
 }
-
 
 /* =========================
    MOBILE LEADERBOARD
@@ -1084,7 +1086,6 @@ select:focus-visible {
   margin-top: 0;
 }
 
-
 /* =========================
    MOBILE PLAYER CARD
    ========================= */
@@ -1122,5 +1123,164 @@ select:focus-visible {
     grid-row: 2;
 
     width: 100%;
+  }
+}
+
+/* =========================
+   HOME HERO IMAGE SIZE FIX
+   ========================= */
+
+.home-hero {
+  display: grid !important;
+  grid-template-columns: 0.8fr 1.2fr !important;
+  align-items: center !important;
+  gap: 48px !important;
+}
+
+.home-image-placeholder {
+  width: 520px !important;
+  max-width: 520px !important;
+  height: 300px !important;
+  margin-left: auto !important;
+  overflow: hidden !important;
+  border-radius: 12px !important;
+}
+
+.home-image-placeholder img {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  object-fit: cover !important;
+  display: block !important;
+}
+
+/* =========================
+   HOME HERO IMAGE
+   ========================= */
+
+.home-hero {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+
+  display: grid !important;
+  grid-template-columns: 0.9fr 1.1fr !important;
+  align-items: center !important;
+  gap: 40px !important;
+
+  overflow: hidden !important;
+}
+
+/* Constrain ANY image inside the Home hero */
+.home-hero img {
+  display: block !important;
+
+  width: 480px !important;
+  max-width: 480px !important;
+
+  height: 280px !important;
+  max-height: 280px !important;
+
+  object-fit: cover !important;
+  object-position: center !important;
+
+  border-radius: 12px !important;
+}
+
+/* Constrain the image's parent too */
+.home-hero>div:last-child {
+  width: 480px !important;
+  max-width: 480px !important;
+  height: 280px !important;
+
+  overflow: hidden !important;
+  margin-left: auto !important;
+
+  border-radius: 12px !important;
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .home-hero {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+
+  .home-hero>div:last-child {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 240px !important;
+  }
+
+  .home-hero img {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 240px !important;
+    max-height: 240px !important;
+  }
+}
+
+/* =========================
+   PADDLE CARD IMAGES
+   ========================= */
+
+.paddle-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.paddle-card {
+  padding: 10px;
+  min-width: 0;
+
+  background: var(--color-surface);
+  border-radius: 10px;
+
+  transition: transform 0.2s ease;
+}
+
+.paddle-card:hover {
+  transform: translateY(-2px);
+}
+
+.paddle-image {
+  width: 100%;
+  height: 180px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #0f1116;
+  border-radius: 7px;
+
+  overflow: hidden;
+}
+
+.paddle-image img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: contain;
+  object-position: center;
+
+  padding: 0;
+}
+
+/* Mobile paddle cards */
+@media (max-width: 767px) {
+  .paddle-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .paddle-card {
+    padding: 10px;
+  }
+
+  .paddle-image {
+    height: 200px;
   }
 }

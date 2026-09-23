@@ -1,3 +1,11 @@
+const paddleImages = {
+    1: '/images/paddles/paddle-slk-evo-control.png',
+    2: '/images/paddles/paddle-joola-essentials.png',
+    3: '/images/paddles/paddle-franklin-signature.png',
+    4: '/images/paddles/paddle-slk-halo-power.png',
+    5: '/images/paddles/paddle-hyperion.png',
+}
+
 function PaddleDetailsModal({ paddle, onClose }) {
     if (!paddle) {
         return null
@@ -18,7 +26,10 @@ function PaddleDetailsModal({ paddle, onClose }) {
                 </button>
 
                 <div className="modal-image">
-                    Paddle Image
+                    <img
+                        src={paddleImages[paddle.id]}
+                        alt={`${paddle.brand} ${paddle.model}`}
+                    />
                 </div>
 
                 <div className="modal-content">

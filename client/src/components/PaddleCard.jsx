@@ -1,8 +1,19 @@
+const paddleImages = {
+    1: '/images/paddles/paddle-slk-evo-control.png',
+    2: '/images/paddles/paddle-joola-essentials.png',
+    3: '/images/paddles/paddle-franklin-signature.png',
+    4: '/images/paddles/paddle-slk-halo-power.png',
+    5: '/images/paddles/paddle-hyperion.png',
+}
+
 function PaddleCard({ paddle, onViewDetails }) {
     return (
         <article className="paddle-card">
             <div className="paddle-image">
-                <span>Paddle Image</span>
+                <img
+                    src={paddleImages[paddle.id]}
+                    alt={`${paddle.brand} ${paddle.model}`}
+                />
             </div>
 
             <p className="paddle-brand">{paddle.brand}</p>

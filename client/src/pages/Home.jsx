@@ -19,8 +19,11 @@ function Home() {
           </Link>
         </div>
 
-        <div className="home-image-placeholder">
-          Paddle Image
+        <div className="hero-image">
+          <img
+            src="/images/paddlematch-hero.png"
+            alt="Pickleball paddle and ball on a court"
+          />
         </div>
       </section>
 
