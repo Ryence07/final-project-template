@@ -21,7 +21,7 @@ export const paddles = [
         model: 'Essentials',
         price: 3999,
         description:
-            'A beginner-friendly paddle with a comfortable feel.',
+            'A beginner-friendly paddle with a comfortable feel and balanced performance.',
         weight: '7.8 oz',
         shape: 'Standard',
         power: 'Medium',
