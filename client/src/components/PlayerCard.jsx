@@ -1,5 +1,10 @@
-function PlayerCard({ player }) {
-    const initial = player.name.charAt(0).toUpperCase()
+function PlayerCard({
+    player,
+    onMatchUp,
+    requestStatus,
+}) {
+    const initial =
+        player.name.charAt(0).toUpperCase()
 
     return (
         <article className="player-card">
@@ -11,7 +16,8 @@ function PlayerCard({ player }) {
                 <h3>{player.name}</h3>
 
                 <p>
-                    {player.skillLevel} · {player.playingStyle}
+                    {player.skillLevel} ·{' '}
+                    {player.playingStyle}
                 </p>
 
                 <p>
@@ -27,8 +33,19 @@ function PlayerCard({ player }) {
             <button
                 type="button"
                 className="card-button primary-button"
+                onClick={() =>
+                    onMatchUp(player.id)
+                }
+                disabled={
+                    requestStatus === 'sending' ||
+                    requestStatus === 'sent'
+                }
             >
-                Match Up
+                {requestStatus === 'sending'
+                    ? 'Sending...'
+                    : requestStatus === 'sent'
+                        ? 'Request Sent'
+                        : 'Match Up'}
             </button>
         </article>
     )

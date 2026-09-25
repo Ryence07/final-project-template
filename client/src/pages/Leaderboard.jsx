@@ -21,6 +21,10 @@ function Leaderboard() {
         loadPlayers()
     }, [])
 
+    const sortedPlayers = [...players].sort(
+        (a, b) => b.points - a.points
+    )
+
     if (loading) {
         return (
             <main className="leaderboard-page">
@@ -39,7 +43,9 @@ function Leaderboard() {
                 <section className="page-heading">
                     <p className="eyebrow">LEADERBOARD</p>
                     <h1>Player Leaderboard</h1>
-                    <p>Unable to load leaderboard: {error}</p>
+                    <p>
+                        Unable to load leaderboard: {error}
+                    </p>
                 </section>
             </main>
         )
@@ -73,9 +79,11 @@ function Leaderboard() {
                         </thead>
 
                         <tbody>
-                            {players.map((player, index) => (
+                            {sortedPlayers.map((player, index) => (
                                 <tr key={player.id}>
-                                    <td>{index + 1}</td>
+                                    <td>
+                                        {index + 1}
+                                    </td>
 
                                     <td>
                                         {player.name}
@@ -100,7 +108,7 @@ function Leaderboard() {
 
                 {/* Mobile Leaderboard */}
                 <div className="leaderboard-mobile">
-                    {players.map((player, index) => (
+                    {sortedPlayers.map((player, index) => (
                         <article
                             className="leaderboard-mobile-card"
                             key={player.id}
